@@ -1012,12 +1012,6 @@ print(f'''
 
 """Не то, чтобы прямо точно, но мы и не синоптики в конце концов. А по данным модели, в целом, тренд прослеживается, и примерно понятно, когда стоит надеть свитер :)"""
 
-# ХЕРНЯ
-#from sklearn.metrics import mean_absolute_error
-#
-#mape = mean_absolute_error(df['avg_temp'], model.coef_.item()*df['date'] + model.intercept_.item()) / df['avg_temp'].abs().sum()
-#mape
-
 tmp = df[['date', 'avg_temp']]
 tmp['avg_temp_predict'] = tmp.apply(lambda x: x.date * model.coef_.item() + model.intercept_.item(), axis=1)
 tmp['diff_percentage'] = tmp.apply(lambda x: abs((x.avg_temp - x.avg_temp_predict) * 100.0 / x.avg_temp), axis=1)
