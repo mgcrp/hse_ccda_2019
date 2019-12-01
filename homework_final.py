@@ -12,14 +12,14 @@ __Группа__ - Никифоров, Попов
 """
 
 # Подключаю свой Google Drive, там лежит датасет
-from google.colab import drive 
+from google.colab import drive
 drive.mount('/content/gdrive')
 
 # Импортирую датасет
-import pandas as pd 
+import pandas as pd
 df = pd.read_csv('gdrive/My Drive/Colab Notebooks/november_weather.csv', delimiter='\t')
 
-# Загрузить датасет (способ для пидорасов)
+# Загрузить датасет
 import io
 from google.colab import files
 
@@ -185,7 +185,7 @@ for i in range(5):
             'avg_pressure': mean(df_features_5[df_features_5.cluster == i].pressure),
             'avg_wind': mean(df_features_5[df_features_5.cluster == i].wind_speed)
         }), ignore_index=True)
-    
+
 metrics_5cluster = metrics_5cluster.set_index('cluster')
 metrics_5cluster
 
@@ -232,7 +232,7 @@ for i in range(9):
             'avg_pressure': mean(df_features_9[df_features_9.cluster == i].pressure),
             'avg_wind': mean(df_features_9[df_features_9.cluster == i].wind_speed)
         }), ignore_index=True)
-    
+
 metrics_9cluster = metrics_9cluster.set_index('cluster')
 metrics_9cluster
 
@@ -268,7 +268,7 @@ plt.show()
  * Найдите 95% доверительный интервал для среднего значения какого-либо признака на всем множестве объектов, используя бутстрэп
  * Сравните средние по какому-либо признаку в двух кластерах, используя бутстрэп
  * Для одного из кластеров сравните среднее на всем множестве для какого-либо признака с его средним внутри кластера, используя бутстрэп
- 
+
 **Примечание**: каждое применение бутстрэпа должно быть обоими методами, с опорой и без
 
 __1 - Найдите 95% доверительный интервал для среднего значения какого-либо признака на всем множестве объектов, используя бутстрэп__
@@ -288,17 +288,17 @@ bootstrap_iters = 5000
 bootstrap_choices = len(df_features)
 
 for i in range(bootstrap_iters):
-    # Добавляем в список                                            
+    # Добавляем в список
     means.append(
         # Среднее значение
         mean(
             choices(
-                # Выбираем случайный элемент из значений признака                                                  
+                # Выбираем случайный элемент из значений признака
                 df_features_5['avg_temp'].tolist(),
                 # k-раз
                 k=bootstrap_choices
             )
-        ) 
+        )
     )
 
 # Визуализация
@@ -363,7 +363,7 @@ for i in range(bootstrap_iters):
                 )
             )
     )
-  
+
 # Визуализация
 fig, graph = plt.subplots(figsize=(10, 6))
 plt.hist(means, bins=50, color='#00b5ff', edgecolor='black')
@@ -399,7 +399,7 @@ for i in range(bootstrap_iters):
                 )
             )
     )
-    
+
 fig, graph = plt.subplots(figsize=(10, 6))
 plt.hist(means_cluster3, bins=50, color='#00b5ff', label='Cluster 3', edgecolor='black')
 plt.hist(means_cluster4, bins=50, color='#f91155', label='Cluster 4', edgecolor='black')
@@ -455,7 +455,7 @@ for i in range(bootstrap_iters):
                 )
             )
     )
-    
+
 fig, graph = plt.subplots(figsize=(10, 6))
 plt.hist(means, bins=50, color='#00b5ff', edgecolor='black')
 plt.xlabel('Значение avg_temp')
@@ -490,7 +490,7 @@ for i in range(bootstrap_iters):
                 )
             )
     )
-    
+
 fig, graph = plt.subplots(figsize=(10, 6))
 plt.hist(means_cluster1, bins=50, color='#00b5ff', label='Cluster 1', edgecolor='black')
 plt.hist(means_allvalues, bins=50, color='#f91155', label='All values', edgecolor='black')
